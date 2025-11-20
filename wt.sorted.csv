@@ -1,0 +1,4 @@
+chromosome,position,forward_reads,reverse_reads,forward_total,reverse_total,forward_ratio,reverse_ratio,cleavage_score
+chr2,193162391,11,10,32,30,0.343750,0.333333,3.023604
+chr4,165455439,11,14,13,21,0.846154,0.666667,19.816782
+chr5,131876425,24,20,82,72,0.292683,0.277778,5.859531
