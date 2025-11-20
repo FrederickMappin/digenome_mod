@@ -22,8 +22,20 @@ COPY run_digenome_container.sh /app/run_digenome.sh
 COPY treated.sorted.bam /app/treated.sorted.bam  
 COPY wt.sorted.bam /app/wt.sorted.bam
 
-# Set executable permissions
-RUN chmod +x /app/digenome /app/run_digenome.sh
+# Set executable permissions and create symlinks for easy access
+RUN chmod +x /app/digenome /app/run_digenome.sh && \
+    ln -s /app/digenome /usr/local/bin/digenome && \
+    ln -s /app/run_digenome.sh /usr/local/bin/run_digenome
 
-# Set the runner as entrypoint
-ENTRYPOINT ["/app/run_digenome.sh"]
+# Set working directory to /app for Nextflow compatibility
+WORKDIR /app
+
+# Add /app to PATH so scripts can be called without absolute paths
+ENV PATH="/app:${PATH}"
+
+# Use bash as entrypoint for Nextflow compatibility
+# This allows direct execution of scripts without full paths
+ENTRYPOINT ["/bin/bash", "-c"]
+
+# Default command shows help when run without arguments  
+CMD ["run_digenome.sh --help"]
