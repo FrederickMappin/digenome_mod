@@ -12,11 +12,13 @@ In order to make the standalone useable within docker we use a helper script.
 
 BAM_FILE - Your input file \
 -q       - Overhang \
---csv    - Output format option  \
+--csv    - Output format option  
 
-'''
+
+
+"""
 ./run_digenome.sh file.bam -q 0 -- --csv 
-'''
+"""
 
 Citation info: Kim D. et al. Digenome-seq: genome-wide profiling of CRISPR-Cas9 off-target effects in human cells. Nature Methods 12, 237-243 (2015).
 
