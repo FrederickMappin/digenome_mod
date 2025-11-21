@@ -4,12 +4,12 @@ set -e
 if [ "$#" -eq 0 ] || [[ "$1" == "--help" ]] || [[ "$1" == "-h" ]]; then
     echo "🧬 Digenome Analysis Tool"
     echo "========================"
-    echo "Usage: <BAM_FILE> [digenome_options] [-- --csv [filename]]"
+    echo "Usage: <BAM_FILE> [digenome_options] [--csv [filename]]"
     echo ""
     echo "Examples:"
     echo "  docker run --rm digenome:latest treated.sorted.bam"
     echo "  docker run --rm -v \$(pwd):/data digenome:latest /data/sample.bam"
-    echo "  docker run --rm -v \$(pwd):/data digenome:latest /data/sample.bam -- --csv"
+    echo "  docker run --rm -v \$(pwd):/data digenome:latest /data/sample.bam --csv output.csv"
     echo ""
     echo "Built-in samples: treated.sorted.bam, wt.sorted.bam"
     exit 0
@@ -21,22 +21,23 @@ shift
 DIGENOME_OPTS=()
 CSV_OUTPUT=false
 CSV_FILE=""
-PARSING_OUTPUT=false
 
-for arg in "$@"; do
-    if [[ "$arg" == "--" ]]; then
-        PARSING_OUTPUT=true
-        continue
-    fi
-    if [ "$PARSING_OUTPUT" = true ]; then
-        if [[ "$arg" == "--csv" ]]; then
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --csv)
             CSV_OUTPUT=true
-        elif [ "$CSV_OUTPUT" = true ] && [ -z "$CSV_FILE" ]; then
-            CSV_FILE="$arg"
-        fi
-    else
-        DIGENOME_OPTS+=("$arg")
-    fi
+            if [[ -n "$2" && "$2" != -* ]]; then
+                CSV_FILE="$2"
+                shift 2
+            else
+                shift
+            fi
+            ;;
+        *)
+            DIGENOME_OPTS+=("$1")
+            shift
+            ;;
+    esac
 done
 
 # Check BAM file

@@ -33,9 +33,5 @@ WORKDIR /app
 # Add /app to PATH so scripts can be called without absolute paths
 ENV PATH="/app:${PATH}"
 
-# Use bash as entrypoint for Nextflow compatibility
-# This allows direct execution of scripts without full paths
-ENTRYPOINT ["/bin/bash", "-c"]
-
 # Default command shows help when run without arguments  
-CMD ["run_digenome.sh --help"]
+CMD ["run_digenome.sh", "--help"]
