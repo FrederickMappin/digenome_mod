@@ -16,9 +16,9 @@ BAM_FILE - Your input file \
 
 
 
-"""
+```
 ./run_digenome.sh file.bam -q 0 -- --csv 
-"""
+```
 
 Citation info: Kim D. et al. Digenome-seq: genome-wide profiling of CRISPR-Cas9 off-target effects in human cells. Nature Methods 12, 237-243 (2015).
 
