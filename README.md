@@ -10,10 +10,10 @@ Digenome-seq is an in vitro nuclease-digested whole-genome sequencing to profile
 
 In order to make the standalone useable within docker we use a helper script.
 
-BAM_FILE - Your input file
--q       - Overhang 
---       -Critical separator 
---csv    - Output format option
+BAM_FILE - Your input file \
+-q       - Overhang \
+--       -Critical separator  \
+--csv    - Output format option\
 
 '''
 ./run_digenome.sh file.bam -q 0 -- --csv 
